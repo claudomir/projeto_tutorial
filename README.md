@@ -1,116 +1,189 @@
-# 🌐 Aula de Programação Web  
-## CSS – Seletores Personalizados: id e class  
+
+# 📘 Apostila de CSS  
+## **Pseudo-classes e Pseudo-elementos**
 
 ---
 
-## 1. O que são seletores em CSS?  
-Seletores são como “endereços” que o CSS usa para encontrar os elementos de uma página HTML e aplicar estilos a eles.  
+## **1. Introdução**
+No CSS, **pseudo-classes** e **pseudo-elementos** são recursos que permitem **estilizar elementos HTML de forma especial**, sem precisar criar novas tags ou alterar o conteúdo do HTML.
 
-Exemplo:  
+- **Pseudo-classes** → Definem **estados especiais** de um elemento, como quando o mouse passa por cima ou quando um campo está selecionado.
+- **Pseudo-elementos** → Permitem **estilizar partes específicas** de um elemento ou adicionar conteúdo extra via CSS.
+
+---
+
+## **2. Pseudo-classes**
+### **2.1 Conceito**
+Uma **pseudo-classe** descreve um **estado ou condição** de um elemento, aplicando um estilo apenas quando essa condição é verdadeira.
+
+### **2.2 Sintaxe**
 ```css
-p {
-  color: blue;
+seletor:pseudo-classe {
+    propriedade: valor;
 }
 ```
 
-👉 Esse seletor pega **todos os parágrafos (`<p>`)** e deixa o texto azul.  
-
-Mas, e se quisermos **estilizar apenas um parágrafo específico**, ou um **grupo de elementos**?  
-Aí entram os **seletores personalizados: `id` e `class`**.  
+### **2.3 Principais Pseudo-classes**
+| Pseudo-classe | Descrição | Exemplo de uso |
+|--------------|-----------|----------------|
+| `:hover` | Quando o mouse está sobre o elemento | Mudar cor de um botão |
+| `:active` | Quando o elemento está sendo clicado | Botão fica mais escuro no clique |
+| `:focus` | Quando o elemento recebe foco (campo de formulário) | Borda colorida no campo |
+| `:visited` | Link já visitado | Cor diferente para links visitados |
+| `:first-child` | Primeiro filho de um elemento pai | Estilo especial no primeiro item |
+| `:last-child` | Último filho de um elemento pai | Estilo especial no último item |
+| `:nth-child(n)` | Elemento na posição “n” | Linhas alternadas de tabela |
 
 ---
 
-## 2. Seletor **id** (`#`)  
-- O **id** é como um **RG**: só pode existir **um único elemento com esse identificador** na página.  
-- Para usar, no HTML colocamos o atributo `id` no elemento.  
-- No CSS, usamos o símbolo **#** para indicar que estamos chamando um id.  
-
-**Exemplo:**  
+### **2.4 Exemplo aplicado**
+**HTML**
 ```html
-<p id="destaque">Esse parágrafo é único e especial.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exemplo Pseudo-classes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href="#">Link normal</a>
+    <a href="#">Link visitado</a>
+
+    <br><br>
+
+    <button>Botão</button>
+
+    <br><br>
+
+    <ul>
+        <li>Primeiro item</li>
+        <li>Segundo item</li>
+        <li>Terceiro item</li>
+    </ul>
+</body>
+</html>
 ```
 
+**CSS (style.css)**
 ```css
-#destaque {
-  color: red;
-  font-weight: bold;
+a:hover {
+    color: red; /* Quando o mouse passar */
+}
+
+a:visited {
+    color: purple; /* Link já visitado */
+}
+
+button:hover {
+    background-color: blue;
+    color: white;
+}
+
+button:active {
+    background-color: navy;
+}
+
+li:first-child {
+    font-weight: bold; /* Primeiro item */
+}
+
+li:last-child {
+    color: green; /* Último item */
+}
+
+li:nth-child(2) {
+    color: orange; /* Segundo item */
 }
 ```
 
-👉 Apenas o parágrafo com `id="destaque"` ficará vermelho e em negrito.  
+---
+
+## **3. Pseudo-elementos**
+### **3.1 Conceito**
+Um **pseudo-elemento** estiliza **uma parte específica** de um elemento ou adiciona conteúdo extra antes ou depois dele.
+
+### **3.2 Sintaxe**
+```css
+seletor::pseudo-elemento {
+    propriedade: valor;
+}
+```
+> **Obs.:** O uso de dois pontos duplos `::` é recomendado para diferenciar de pseudo-classes.
+
+### **3.3 Principais Pseudo-elementos**
+| Pseudo-elemento | Descrição | Exemplo de uso |
+|-----------------|-----------|----------------|
+| `::first-letter` | Primeira letra do texto | Estilo de “capitular” em parágrafos |
+| `::first-line` | Primeira linha do texto | Estilo especial para primeira linha |
+| `::before` | Conteúdo antes do elemento | Adicionar ícones ou símbolos |
+| `::after` | Conteúdo depois do elemento | Adicionar texto extra |
+| `::selection` | Texto selecionado pelo usuário | Alterar cor de seleção |
 
 ---
 
-## 3. Seletor **class** (`.`)  
-- A **class** é como um **apelido**: pode ser usada em **vários elementos ao mesmo tempo**.  
-- No HTML colocamos o atributo `class`.  
-- No CSS usamos o símbolo **.** (ponto).  
-
-**Exemplo:**  
+### **3.4 Exemplo aplicado**
+**HTML**
 ```html
-<p class="importante">Esse é importante.</p>
-<p class="importante">Esse também é importante.</p>
-<p>Esse não é importante.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exemplo Pseudo-elementos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Título da Página</h1>
+    <p>Este é um parágrafo para demonstrar o uso de pseudo-elementos no CSS.</p>
+</body>
+</html>
 ```
 
+**CSS (style.css)**
 ```css
-.importante {
-  color: green;
-  font-style: italic;
+p::first-letter {
+    font-size: 2em;
+    color: red;
+    font-weight: bold;
+}
+
+p::first-line {
+    color: blue;
+}
+
+h1::before {
+    content: "🔥 ";
+}
+
+h1::after {
+    content: " ✨";
+}
+
+p::selection {
+    background-color: yellow;
+    color: black;
 }
 ```
 
-👉 Todos os parágrafos com `class="importante"` ficarão verdes e em itálico.  
+---
+
+## **4. Diferença entre Pseudo-classes e Pseudo-elementos**
+| Característica | Pseudo-classe | Pseudo-elemento |
+|----------------|--------------|-----------------|
+| O que faz | Define **estados** de um elemento | Estiliza **partes específicas** do elemento |
+| Sintaxe | `:nome` | `::nome` |
+| Exemplo | `a:hover` | `p::first-letter` |
 
 ---
 
-## 4. Diferença entre **id** e **class**  
-- `id` → identifica **um único elemento** (único na página).  
-- `class` → pode ser usada em **vários elementos**.  
+## **5. Exercícios**
+### **Parte 1 – Pseudo-classes**
+1. Crie um botão que mude de cor quando o mouse passar por cima e quando for clicado.
+2. Estilize links visitados para que fiquem com cor roxa.
+3. Faça com que o primeiro item de uma lista fique em negrito.
+4. Pinte as linhas pares de uma tabela com cor de fundo cinza claro usando `:nth-child()`.
 
-📌 **Analogia:**  
-Imagine uma sala de aula:  
-- Cada aluno tem seu **id** (número de matrícula, único).  
-- Mas vários alunos podem ter a **mesma class** (ex.: todos que fazem parte do “time de futebol”).  
-
----
-
-## 5. Exemplos combinando  
-```html
-<h1 id="titulo-principal">Bem-vindo!</h1>
-<p class="texto">Esse é o primeiro parágrafo.</p>
-<p class="texto">Esse é o segundo parágrafo.</p>
-<p>Esse não tem classe.</p>
-```
-
-```css
-#titulo-principal {
-  text-align: center;
-  color: blue;
-}
-
-.texto {
-  font-size: 18px;
-  color: gray;
-}
-```
-
-👉 O título ficará azul e centralizado, enquanto os parágrafos com class “texto” terão fonte 18px e cinza.  
-
----
-
-# ✍️ Exercícios de fixação  
-
-1. Crie um parágrafo com `id="aviso"` e faça o texto aparecer em vermelho e em negrito.  
-2. Crie três títulos `<h2>` com `class="secao"`. Faça todos eles ficarem verdes.  
-3. Crie dois parágrafos com a mesma classe chamada `"destaque"`, deixando-os em itálico e cor azul.  
-4. No mesmo código, crie um parágrafo sem classe nem id e veja como ele ficará sem estilo.  
-5. Explique com suas palavras a diferença entre `id` e `class`.  
-
----
-
-## 🔹 Dicas finais  
-- Use **id** quando quiser aplicar estilo a **um único elemento**.  
-- Use **class** quando quiser aplicar estilo a **vários elementos** ao mesmo tempo.  
-- Você pode combinar **id e class** em um mesmo elemento se precisar de estilos diferentes.  
+### **Parte 2 – Pseudo-elementos**
+1. Use `::first-letter` para deixar a primeira letra de um parágrafo grande e vermelha.
+2. Adicione um ícone antes de todos os títulos `<h2>` usando `::before`.
+3. Coloque o texto "(fim)" no final de todos os parágrafos usando `::after`.
+4. Mude a cor de fundo e do texto quando um trecho for selecionado (`::selection`).
 
